@@ -8,7 +8,10 @@ public static class Helpers
     {
         long result = 1;
         for (var i = 1; i <= y; i++)
+        {
             result *= x;
+        }
+
         return result;
     }
 
@@ -16,7 +19,10 @@ public static class Helpers
     {
         var result = a % b;
         if (result < 0)
+        {
             result += b;
+        }
+
         return result;
     }
 
@@ -24,14 +30,14 @@ public static class Helpers
     {
         var now = DateTime.UtcNow;
         acc();
-        Console.WriteLine(DateTime.UtcNow-now);
+        Console.WriteLine(DateTime.UtcNow - now);
     }
-    
+
     public static T Measure<T>(Func<T> func)
     {
         var now = DateTime.UtcNow;
         var result = func();
-        Console.WriteLine(DateTime.UtcNow-now);
+        Console.WriteLine(DateTime.UtcNow - now);
         return result;
     }
 }

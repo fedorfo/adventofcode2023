@@ -1,16 +1,12 @@
-using System.Text.RegularExpressions;
-using adventofcode2023.helpers;
-
 namespace adventofcode2023;
+
+using System.Globalization;
+using System.Text.RegularExpressions;
+using helpers;
 
 public class Day3 : PuzzleBase
 {
     private static readonly Regex NumberRegex = new(@"(\d+)", RegexOptions.Compiled);
-
-    private record Number(int Value, int X, int Y)
-    {
-        public List<V2> Points => Enumerable.Range(Y, Value.ToString().Length).Select(d => new V2(X, d)).ToList();
-    };
 
     public override void Solve()
     {
@@ -22,7 +18,11 @@ public class Day3 : PuzzleBase
             var matches = NumberRegex.Matches(line).ToArray();
             foreach (var match in matches)
             {
-                numbers.Add(new Number(int.Parse(match.Groups[1].Value), i, match.Groups[1].Index));
+                numbers.Add(new Number(
+                    int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture),
+                    i,
+                    match.Groups[1].Index)
+                );
             }
         }
 
@@ -54,5 +54,13 @@ public class Day3 : PuzzleBase
             return adjacentNumbers.Count != 2 ? 0 : adjacentNumbers[0].Value * adjacentNumbers[1].Value;
         }).Sum();
         Console.WriteLine(result2);
+    }
+
+    private sealed record Number(int Value, int X, int Y)
+    {
+        public List<V2> Points => Enumerable
+            .Range(this.Y, this.Value.ToString(CultureInfo.InvariantCulture).Length)
+            .Select(d => new V2(this.X, d))
+            .ToList();
     }
 }

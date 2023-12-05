@@ -1,6 +1,7 @@
-using System.Text.RegularExpressions;
-
 namespace adventofcode2023;
+
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 public class Day2 : PuzzleBase
 {
@@ -8,10 +9,6 @@ public class Day2 : PuzzleBase
     private static readonly Regex GreenRegex = new(@"(\d+) green", RegexOptions.Compiled);
     private static readonly Regex RedRegex = new(@"(\d+) red", RegexOptions.Compiled);
     private static readonly Regex BlueRegex = new(@"(\d+) blue", RegexOptions.Compiled);
-
-    private record Round(int Blue, int Red, int Green);
-
-    private record Game(int Index, Round[] Rounds);
 
     public override void Solve()
     {
@@ -32,13 +29,13 @@ public class Day2 : PuzzleBase
         Console.WriteLine(result2);
     }
 
-    private Game[] ParseGames(List<string> lines)
+    private static Game[] ParseGames(List<string> lines)
     {
         var games = new List<Game>();
         foreach (var rawGame in lines)
         {
             var match = LineRegex.Match(rawGame);
-            var index = int.Parse(match.Groups[1].Value);
+            var index = int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
             var rawRounds = match.Groups[2].Value.Split(';');
             var rounds = new List<Round>();
             foreach (var rawRound in rawRounds)
@@ -48,13 +45,21 @@ public class Day2 : PuzzleBase
                 foreach (var rawRecord in rawRecords)
                 {
                     if (BlueRegex.IsMatch(rawRecord))
-                        blue = int.Parse(BlueRegex.Match(rawRecord).Groups[1].Value);
+                    {
+                        blue = int.Parse(BlueRegex.Match(rawRecord).Groups[1].Value, CultureInfo.InvariantCulture);
+                    }
                     else if (RedRegex.IsMatch(rawRecord))
-                        red = int.Parse(RedRegex.Match(rawRecord).Groups[1].Value);
+                    {
+                        red = int.Parse(RedRegex.Match(rawRecord).Groups[1].Value, CultureInfo.InvariantCulture);
+                    }
                     else if (GreenRegex.IsMatch(rawRecord))
-                        green = int.Parse(GreenRegex.Match(rawRecord).Groups[1].Value);
+                    {
+                        green = int.Parse(GreenRegex.Match(rawRecord).Groups[1].Value, CultureInfo.InvariantCulture);
+                    }
                     else
-                        throw new Exception($"Unexpected rawRecord {rawRecord}");
+                    {
+                        throw new ArgumentException($"Unexpected rawRecord {rawRecord}");
+                    }
                 }
 
                 rounds.Add(new Round(blue, red, green));
@@ -65,4 +70,8 @@ public class Day2 : PuzzleBase
 
         return games.ToArray();
     }
+
+    private sealed record Round(int Blue, int Red, int Green);
+
+    private sealed record Game(int Index, Round[] Rounds);
 }

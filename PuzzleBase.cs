@@ -1,21 +1,26 @@
 namespace adventofcode2023;
 
-public abstract class PuzzleBase: IPuzzle
+using System.Globalization;
+
+public abstract class PuzzleBase : IPuzzle
 {
     public abstract void Solve();
-    public int Day => int.Parse(GetType().Name.Replace("Day", ""));
+    public int Day => int.Parse(this.GetType().Name.Replace("Day", ""), CultureInfo.InvariantCulture);
 
-    protected List<string> ReadLines()
+    public virtual string InputFileName => $"input{this.Day}.txt";
+
+    protected static List<string> ReadLines()
     {
         var result = new List<string>();
         while (true)
         {
             var line = Console.ReadLine();
             if (line is null)
+            {
                 return result;
+            }
+
             result.Add(line);
         }
     }
-
-    public virtual string InputFileName => $"input{Day}.txt";
 }
