@@ -21,7 +21,6 @@ public class Day4 : PuzzleBase
         }).ToList();
         var result1 = cards.Select(card =>
         {
-            var winningNumbers = card.WinningNumbers.ToHashSet();
             var pow = card.WinsCount - 1;
             return pow == -1 ? 0 : Helpers.LongPow(2, pow);
         }).Sum();
@@ -43,13 +42,6 @@ public class Day4 : PuzzleBase
 
     private sealed record Card(List<int> WinningNumbers, List<int> YourNumbers)
     {
-        public int WinsCount
-        {
-            get
-            {
-                var winningNumbers = this.WinningNumbers.ToHashSet();
-                return this.YourNumbers.Count(x => winningNumbers.Contains(x));
-            }
-        }
+        public int WinsCount => this.YourNumbers.Count(x => this.WinningNumbers.Contains(x));
     }
 }
