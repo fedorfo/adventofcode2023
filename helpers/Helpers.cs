@@ -40,4 +40,7 @@ public static class Helpers
         Console.WriteLine(DateTime.UtcNow - now);
         return result;
     }
+
+    public static IEnumerable<string> ExtractTokens(string line) =>
+        line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 }
