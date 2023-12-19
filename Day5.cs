@@ -1,12 +1,9 @@
 namespace adventofcode2023;
 
-using System.Text.RegularExpressions;
 using helpers;
 
 public class Day5 : PuzzleBase
 {
-    private static readonly Regex NumberRegex = new(@"Card\s+(\d+):\s+(.*)", RegexOptions.Compiled);
-
     public override void Solve()
     {
         var lines = ReadLines();
