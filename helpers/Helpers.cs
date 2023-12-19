@@ -41,6 +41,16 @@ public static class Helpers
         return result;
     }
 
-    public static IEnumerable<string> ExtractTokens(string line) =>
-        line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+    public static IEnumerable<string> ExtractTokens(string line, params char[] delimiters)
+    {
+        if (delimiters.Length == 0)
+        {
+            delimiters = new[] { ' ' };
+        }
+
+        return line.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+    }
+
+    public static long Gcd (long a, long b) => b > 0 ? Gcd (b, a % b) : a;
+    public static long Lcd(long a, long b) => a * b / Gcd(a, b);
 }
