@@ -51,6 +51,6 @@ public static class Helpers
         return line.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
     }
 
-    public static long Gcd (long a, long b) => b > 0 ? Gcd (b, a % b) : a;
+    public static long Gcd(long a, long b) => b > 0 ? Gcd(b, a % b) : a;
     public static long Lcd(long a, long b) => a * b / Gcd(a, b);
 }
