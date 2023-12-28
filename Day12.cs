@@ -12,21 +12,22 @@ public class Day12 : PuzzleBase
             return new Spring(tokens[0], Helpers.ExtractTokens(tokens[1], ',').Select(int.Parse).ToList());
         }).ToList();
 
-        var result1 = springs.Select(x => Solve(x, 0, 0, new Dictionary<Tuple<int, int>,long>())).Sum();
+        var result1 = springs.Select(x => Solve(x, 0, 0, new Dictionary<Tuple<int, int>, long>())).Sum();
         Console.WriteLine(result1);
 
         springs = springs.Select(x => new Spring
             (
                 string.Join('?', Enumerable.Repeat(x.Pattern, 5)),
-                Enumerable.Repeat(x.DamagedParts, 5).SelectMany(y=>y).ToList()
+                Enumerable.Repeat(x.DamagedParts, 5).SelectMany(y => y).ToList()
             )
         ).ToList();
 
-        var result2 = springs.Select(x => Solve(x, 0, 0, new Dictionary<Tuple<int, int>,long>())).Sum();
+        var result2 = springs.Select(x => Solve(x, 0, 0, new Dictionary<Tuple<int, int>, long>())).Sum();
         Console.WriteLine(result2);
     }
 
-    private static long Solve(Spring spring, int patternIndex, int damagedPartsIndex, Dictionary<Tuple<int, int>,long> hash)
+    private static long Solve(Spring spring, int patternIndex, int damagedPartsIndex,
+        Dictionary<Tuple<int, int>, long> hash)
     {
         var key = Tuple.Create(patternIndex, damagedPartsIndex);
         if (hash.TryGetValue(key, out var hashedResult))

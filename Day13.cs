@@ -2,8 +2,6 @@ namespace adventofcode2023;
 
 public class Day13 : PuzzleBase
 {
-    //public override string InputFileName => "sample.txt";
-
     public override void Solve()
     {
         var maps = SplitMaps(ReadLines());
@@ -11,17 +9,23 @@ public class Day13 : PuzzleBase
         var result1 = 0;
         foreach (var map in maps)
         {
-            result1 += Enumerable.Range(1, map.Count - 1).Select(x => IsHorizontalReflection(map, x) == 0 ? x * 100 : 0).Sum();
-            result1 += Enumerable.Range(1, map[0].Count - 1).Select(x => IsVerticalReflection(map, x) == 0 ? x : 0).Sum();
+            result1 += Enumerable.Range(1, map.Count - 1).Select(x => IsHorizontalReflection(map, x) == 0 ? x * 100 : 0)
+                .Sum();
+            result1 += Enumerable.Range(1, map[0].Count - 1).Select(x => IsVerticalReflection(map, x) == 0 ? x : 0)
+                .Sum();
         }
+
         Console.WriteLine(result1);
 
         var result2 = 0;
         foreach (var map in maps)
         {
-            result2 += Enumerable.Range(1, map.Count - 1).Select(x => IsHorizontalReflection(map, x) == 1 ? x * 100 : 0).Sum();
-            result2 += Enumerable.Range(1, map[0].Count - 1).Select(x => IsVerticalReflection(map, x) == 1 ? x : 0).Sum();
+            result2 += Enumerable.Range(1, map.Count - 1).Select(x => IsHorizontalReflection(map, x) == 1 ? x * 100 : 0)
+                .Sum();
+            result2 += Enumerable.Range(1, map[0].Count - 1).Select(x => IsVerticalReflection(map, x) == 1 ? x : 0)
+                .Sum();
         }
+
         Console.WriteLine(result2);
     }
 
