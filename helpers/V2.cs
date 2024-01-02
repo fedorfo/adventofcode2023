@@ -4,6 +4,19 @@ namespace adventofcode2023.helpers;
 
 public record V2(int X, int Y)
 {
+    public static readonly V2 Zero = new(0, 0);
+
+    public static IEnumerable<V2> EnumerateRange(V2 start, V2 end)
+    {
+        for (var i = start.X; i != end.X; i += start.X < end.X ? 1 : -1)
+        {
+            for (var j = start.Y; j != end.Y; j += start.Y < end.Y ? 1 : -1)
+            {
+                yield return new V2(i, j);
+            }
+        }
+    }
+
     public static V2 operator +(V2 l, V2 r) => new(l.X + r.X, l.Y + r.Y);
     public static V2 operator -(V2 l, V2 r) => new(l.X - r.X, l.Y - r.Y);
     public static V2 operator /(V2 p, int l) => new(p.X / l, p.Y / l);
@@ -39,4 +52,6 @@ public record V2(int X, int Y)
             }
         }
     }
+
+    public override string ToString() => $"({this.X},{this.Y})";
 }

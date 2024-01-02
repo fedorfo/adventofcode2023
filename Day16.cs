@@ -4,8 +4,6 @@ using helpers;
 
 public class Day16 : PuzzleBase
 {
-    //public override string InputFileName => "sample.txt";
-
     private static readonly Dictionary<char, char> RotateFieldCellCcw = new()
     {
         { '.', '.' },
@@ -27,7 +25,7 @@ public class Day16 : PuzzleBase
     public override void Solve()
     {
         var map = ReadLines().Select(x => x.ToList()).ToList();
-        var result1 = CountEnergizedTiles(map, new V2(0, 0), new V2(0, 1));
+        var result1 = CountEnergizedTiles(map, V2.Zero, new V2(0, 1));
         Console.WriteLine(result1);
 
         var candidates = new List<Tuple<V2, V2>>().Concat(
@@ -37,7 +35,7 @@ public class Day16 : PuzzleBase
         ).Concat(
             Enumerable.Range(0, map.Count).Select(x => Tuple.Create(new V2(x, 0), new V2(0, 1)))
         ).Concat(
-            Enumerable.Range(0, map.Count).Select(x => Tuple.Create(new V2(x, map[0].Count-1), new V2(0, -1)))
+            Enumerable.Range(0, map.Count).Select(x => Tuple.Create(new V2(x, map[0].Count - 1), new V2(0, -1)))
         ).ToList();
         var result2 = candidates.Select(x => CountEnergizedTiles(map, x.Item1, x.Item2)).Max();
         Console.WriteLine(result2);
@@ -47,7 +45,7 @@ public class Day16 : PuzzleBase
     {
         var visited = new HashSet<Tuple<V2, V2>>();
         Bfs(start, direction, map, visited);
-        return visited.Select(x=>x.Item1).Distinct().Count();
+        return visited.Select(x => x.Item1).Distinct().Count();
     }
 
     private static void Bfs(V2 start, V2 direction, List<List<char>> map, HashSet<Tuple<V2, V2>> visited)
@@ -77,7 +75,7 @@ public class Day16 : PuzzleBase
 
             var nextVertices = newDirections
                 .Select(x => Tuple.Create(v + x, x))
-                .Where(x => x.Item1 >= new V2(0, 0) && x.Item1 < new V2(map.Count, map[0].Count))
+                .Where(x => x.Item1 >= V2.Zero && x.Item1 < new V2(map.Count, map[0].Count))
                 .ToList();
 
             foreach (var x in nextVertices)

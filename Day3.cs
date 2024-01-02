@@ -30,7 +30,7 @@ public class Day3 : PuzzleBase
         {
             var numberArea = number.Points
                 .SelectMany(x => x.GetNeighbours8())
-                .Where(x => x >= new V2(0, 0) && x < new V2(lines.Count, lines[0].Length));
+                .Where(x => x >= V2.Zero && x < new V2(lines.Count, lines[0].Length));
             return numberArea.Any(x => !char.IsDigit(lines[x.X][x.Y]) && lines[x.X][x.Y] != '.') ? number.Value : 0;
         }).Sum();
         Console.WriteLine(result1);

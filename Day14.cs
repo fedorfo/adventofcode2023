@@ -75,7 +75,7 @@ public class Day14 : PuzzleBase
                 {
                     var v = new V2(i, j);
                     var u = v + direction;
-                    if (!(u >= new V2(0, 0) && u < new V2(map.Count, map[0].Count)))
+                    if (!(u >= V2.Zero && u < new V2(map.Count, map[0].Count)))
                     {
                         continue;
                     }

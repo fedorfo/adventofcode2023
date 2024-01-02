@@ -105,7 +105,7 @@ public class Day10 : PuzzleBase
         while (queue.Count > 0)
         {
             var v = queue.Dequeue();
-            foreach (var u in v.GetNeighbours4().Where(x => x > new V2(0, 0) && x < new V2(map.Count, map[0].Count)))
+            foreach (var u in v.GetNeighbours4().Where(x => x > V2.Zero && x < new V2(map.Count, map[0].Count)))
             {
                 var delta = u - v;
                 if (IsMoveAllowed[delta](map, v))
