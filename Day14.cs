@@ -80,10 +80,10 @@ public class Day14 : PuzzleBase
                         continue;
                     }
 
-                    if (result[v.X][v.Y] == 'O' && result[u.X][u.Y] == '.')
+                    if (result[(int)v.X][(int)v.Y] == 'O' && result[(int)u.X][(int)u.Y] == '.')
                     {
-                        result[u.X][u.Y] = 'O';
-                        result[v.X][v.Y] = '.';
+                        result[(int)u.X][(int)u.Y] = 'O';
+                        result[(int)v.X][(int)v.Y] = '.';
                     }
                 }
             }

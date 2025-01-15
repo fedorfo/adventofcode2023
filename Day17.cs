@@ -84,7 +84,7 @@ public class Day17 : PuzzleBase
                 var distance = v.Direction == direction ? v.Distance + 1 : 1;
                 if (this.vertices.TryGetValue((position, direction, distance), out var u))
                 {
-                    yield return (u, this.map[u.Position.X][u.Position.Y]);
+                    yield return (u, this.map[(int)u.Position.X][(int)u.Position.Y]);
                 }
             }
         }
@@ -132,7 +132,7 @@ public class Day17 : PuzzleBase
                 var distance = v.Direction == direction ? v.Distance + 1 : 1;
                 if (this.vertices.TryGetValue((position, direction, distance), out var u))
                 {
-                    yield return (u, this.map[u.Position.X][u.Position.Y]);
+                    yield return (u, this.map[(int)u.Position.X][(int)u.Position.Y]);
                 }
             }
         }

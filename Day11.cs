@@ -41,12 +41,12 @@ public class Day11 : PuzzleBase
             {
                 for (var k = Math.Min(galaxies[i].X, galaxies[j].X); k < Math.Max(galaxies[i].X, galaxies[j].X); k++)
                 {
-                    result += emptyRows.Contains(k) ? emptyLineDelta : 1;
+                    result += emptyRows.Contains((int)k) ? emptyLineDelta : 1;
                 }
 
                 for (var k = Math.Min(galaxies[i].Y, galaxies[j].Y); k < Math.Max(galaxies[i].Y, galaxies[j].Y); k++)
                 {
-                    result += emptyCols.Contains(k) ? emptyLineDelta : 1;
+                    result += emptyCols.Contains((int)k) ? emptyLineDelta : 1;
                 }
             }
         }

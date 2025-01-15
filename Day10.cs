@@ -17,10 +17,10 @@ public class Day10 : PuzzleBase
 
     private static readonly Dictionary<V2, Func<List<List<char>>, V2, bool>> IsMoveAllowed = new()
     {
-        { new V2(-1, 0), (map, v) => !"FL-".Contains(map[v.X - 1][v.Y - 1]) },
-        { new V2(1, 0), (map, v) => !"7J-".Contains(map[v.X][v.Y]) },
-        { new V2(0, -1), (map, v) => !"F7|".Contains(map[v.X - 1][v.Y - 1]) },
-        { new V2(0, 1), (map, v) => !"JL|".Contains(map[v.X][v.Y]) }
+        { new V2(-1, 0), (map, v) => !"FL-".Contains(map[(int)v.X - 1][(int)v.Y - 1]) },
+        { new V2(1, 0), (map, v) => !"7J-".Contains(map[(int)v.X][(int)v.Y]) },
+        { new V2(0, -1), (map, v) => !"F7|".Contains(map[(int)v.X - 1][(int)v.Y - 1]) },
+        { new V2(0, 1), (map, v) => !"JL|".Contains(map[(int)v.X][(int)v.Y]) }
     };
 
     public override void Solve()
@@ -28,11 +28,11 @@ public class Day10 : PuzzleBase
         var map = ReadLines().Select(x => x.ToList()).ToList();
         var animal = map.Select((x, i) => new V2(i, x.IndexOf('S'))).Single(x => x.Y != -1);
         var neighbourPipes = animal.GetNeighbours4()
-            .Where(x => Directions[map[x.X][x.Y]].Select(y => y + x).Contains(animal))
+            .Where(x => Directions[map[(int)x.X][(int)x.Y]].Select(y => y + x).Contains(animal))
             .Select(x => x - animal)
             .ToArray();
         var animalChar = Directions.Keys.Single(x => neighbourPipes.All(y => Directions[x].Contains(y)));
-        map[animal.X][animal.Y] = animalChar;
+        map[(int)animal.X][(int)animal.Y] = animalChar;
         var distances = new Dictionary<V2, int>();
         Bfs(animal, map, distances);
         var result1 = distances.Select(x => x.Value).Max();
@@ -85,7 +85,7 @@ public class Day10 : PuzzleBase
         while (queue.Count > 0)
         {
             var v = queue.Dequeue();
-            foreach (var delta in Directions[map[v.X][v.Y]])
+            foreach (var delta in Directions[map[(int)v.X][(int)v.Y]])
             {
                 var u = v + delta;
                 if (!distances.ContainsKey(u))

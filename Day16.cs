@@ -58,7 +58,7 @@ public class Day16 : PuzzleBase
         {
             var (v, d) = queue.Dequeue();
             var cnt = 0;
-            var fieldValue = map[v.X][v.Y];
+            var fieldValue = map[(int)v.X][(int)v.Y];
             while (d != new V2(0, 1))
             {
                 d = RotateCcw(d);

@@ -31,7 +31,7 @@ public class Day3 : PuzzleBase
             var numberArea = number.Points
                 .SelectMany(x => x.GetNeighbours8())
                 .Where(x => x >= V2.Zero && x < new V2(lines.Count, lines[0].Length));
-            return numberArea.Any(x => !char.IsDigit(lines[x.X][x.Y]) && lines[x.X][x.Y] != '.') ? number.Value : 0;
+            return numberArea.Any(x => !char.IsDigit(lines[(int)x.X][(int)x.Y]) && lines[(int)x.X][(int)x.Y] != '.') ? number.Value : 0;
         }).Sum();
         Console.WriteLine(result1);
 
@@ -40,7 +40,7 @@ public class Day3 : PuzzleBase
             .ToDictionary(x => x.Key, x => x.Value);
         var gears = Enumerable.Range(0, lines.Count)
             .SelectMany(x => Enumerable.Range(0, lines[0].Length).Select(y => new V2(x, y)))
-            .Where(p => lines[p.X][p.Y] == '*')
+            .Where(p => lines[(int)p.X][(int)p.Y] == '*')
             .ToArray();
 
         var result2 = gears.Select(gear =>
